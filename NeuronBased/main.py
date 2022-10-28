@@ -29,7 +29,9 @@ for i in range(100):
     
     dw2 = (out1.T @ error)/100
     out1_withdummy = np.append(out1, np.ones((len(out1), 1)), axis=1)
-    dw1 = (INPUT.T @ (error @ layer2.weights.T * out1_withdummy * (1-out1_withdummy)))/100
+    
+    segment1 =  out1_withdummy * (1 - out1_withdummy)
+    dw1 = (INPUT.T @ (error @ layer2.weights.T * segment1))/100
     
     layer1.weights -= dw1
     layer2.weights -= dw2
